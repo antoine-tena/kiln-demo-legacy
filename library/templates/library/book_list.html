@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bookshelf</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+  <h1>Bookshelf</h1>
+  <form method="get">
+    <input name="q" value="{{ q }}">
+    <button>Search</button>
+  </form>
+  <ul>
+    {% for book in books %}
+      <li>
+        {{ book.title }} by {{ book.author }} ({{ book.available }} left)
+        {% if user.is_authenticated and book.available %}
+          <a href="{% url 'borrow' book.id %}">Borrow</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
